@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react"
 
-function App() {
+import { sampleSize } from "lodash"
+
+import "./App.css"
+
+import Grid from "./components/NumberGrid"
+import { standardDeck } from "./constants"
+
+const App = () => {
+  const [currentSolution, setCurrentSolution] = useState([])
+  const [numberOptions, setNumberOptions] = useState(sampleSize(standardDeck, 6))
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        Arithmetix
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Grid
+          onClick={(value) => setCurrentSolution([...currentSolution, value])}
+          numberOptions={numberOptions}
+        />
+        {currentSolution}
+        <button onClick={() => setCurrentSolution([])}>Clear</button>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
