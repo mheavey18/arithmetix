@@ -4,7 +4,7 @@ const Grid = (props) => {
         buttons.push(
             <button
                 onClick={() => props.onClick(props.numberOptions[i])}
-                key={props.numberOptions[i]}
+                key={`${i}-${props.numberOptions[i]}`}
             >
                 {props.numberOptions[i]}
             </button>

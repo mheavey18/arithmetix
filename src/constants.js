@@ -25,3 +25,16 @@ export const standardDeck = [
     24,
     25,
 ]
+
+export const stringToMath = {
+    "+": "+",
+    "-": "-",
+    "x": "*",
+    "÷": "/",
+}
+export const mathToString = {
+    "+": "+",
+    "-": "-",
+    "*": "x",
+    "/": "÷",
+}
