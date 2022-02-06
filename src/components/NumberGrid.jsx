@@ -3,18 +3,22 @@ const Grid = (props) => {
     for (let i = 0; i < props.numberOptions.length; i++) {
         buttons.push(
             <button
-                onClick={() => props.onClick(props.numberOptions[i])}
+                onClick={() => {
+                    props.updateSolution(props.numberOptions[i].number)
+                    props.numberOptions[i].canUse = false
+                }}
                 key={`${i}-${props.numberOptions[i]}`}
+                disabled={!props.numberOptions[i].canUse}
             >
-                {props.numberOptions[i]}
+                {props.numberOptions[i].number}
             </button>
         )
     }
-    const symbols = ["+", "-", "x", "÷"]
+    const symbols = ["+", "-", "x", "÷", "(", ")"]
     for (let j = 0; j < symbols.length; j++) {
         buttons.push(
             <button
-                onClick={() => props.onClick(symbols[j])}
+                onClick={() => props.updateSolution(symbols[j])}
                 key={symbols[j]}
             >
                 {symbols[j]}
