@@ -1,3 +1,4 @@
+// TODO: Delete this; it's is no longer used
 const Grid = (props) => {
     const buttons = []
     for (let i = 0; i < props.numberOptions.length; i++) {

@@ -88,6 +88,8 @@ export const decks = {
     hard: hardDeck,
 }
 
+export const symbols = ["+", "-", "x", "÷"]
+
 export const stringToMath = {
     "+": "+",
     "-": "-",
