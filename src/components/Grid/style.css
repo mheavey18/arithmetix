@@ -8,4 +8,8 @@
     width: 40px;
     font-size: 20px;
     border-radius: 8px;
+    border: 2px solid black;
+    font: black;
+    text-align: center;
+    background-color: transparent;
 }

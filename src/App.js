@@ -80,6 +80,10 @@ const App = () => {
                                     const newDifficulty = e.target.value
                                     setDifficulty(newDifficulty)
                                     setNumberOptions(getNumberOptions(decks[newDifficulty], 6))
+                                    setNumbersSelected([])
+                                    setParenPositions([])
+                                    setSymbolsSelected([])
+                                    setCurrentSolution("")
                                 }
                             }}
                         >
@@ -101,7 +105,6 @@ const App = () => {
                     symbolsSelected={symbolsSelected}
                     computedTotal={currentSolution}
                 />
-                {currentSolution}
                 <div className="buttonGrids">
                     {/* number button grid */}
                     <Grid
