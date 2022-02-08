@@ -1,0 +1,11 @@
+.buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.numberButton {
+    height: 40px;
+    width: 40px;
+    font-size: 20px;
+    border-radius: 8px;
+}

@@ -1,15 +1,21 @@
 .App {
-    /* background-color: pink; */
     padding-top: 30px;
     padding-bottom: 30px;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 150px;
+    padding-right: 150px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    font-size: 20px;
+    height: 90vh;
 }
 
-@media only screen and (max-width: 600px) {
+.select {
+    font-size: 20px;
+    border-radius: 8px;
+}
+
+@media only screen and (max-width: 1000px) {
     .App {
         padding-left: 10px;
         padding-right: 10px;
@@ -18,8 +24,22 @@
 
 .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-bottom: 20px;
+}
+
+.col1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.col2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: flex-end;
+    margin-left: auto;
 }
 
 .title {
@@ -30,6 +50,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .body {
@@ -38,7 +59,34 @@
     align-items: center;
 }
 
+.firstLine {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.message {
+}
+
 .targetNumber {
     align-self: flex-end;
     font-size: 20px;
+}
+
+.buttonGrids {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+.textButton {
+    font-size: 20px;
+    border-radius: 8px;
+}
+
+.footer {
+    font-size: 12px;
+    display: flex;
+    justify-content: flex-end;
 }

@@ -1,8 +1,11 @@
+import "./style.css"
+
 const Grid = (props) => {
     const buttons = []
     for (let i = 0; i < props.options.length; i++) {
         buttons.push(
             <button
+                className="numberButton"
                 onClick={() => {
                     props.gridButtonOnClick(props.options[i].value, i)
                 }}
@@ -14,7 +17,7 @@ const Grid = (props) => {
         )
     }
     return (
-        <div>
+        <div className="buttons">
             {buttons}
         </div>
     )
