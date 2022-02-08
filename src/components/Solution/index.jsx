@@ -9,12 +9,18 @@ const NumberBox = (props) => {
             <div
                 className="leftParen"
                 onClick={() => {
-                    props.setParenPositions(
-                        [
-                            ...props.parenPositions,
-                            { position: props.position, location: "left" }
-                        ]
-                    )
+                    if (leftParen) {
+                        props.setParenPositions(
+                            props.parenPositions.filter(obj => obj.position !== props.position && obj.location !== "left"),
+                        )
+                    } else {
+                        props.setParenPositions(
+                            [
+                                ...props.parenPositions,
+                                { position: props.position, location: "left" }
+                            ]
+                        )
+                    }
                 }}
             >
                 {
@@ -27,12 +33,18 @@ const NumberBox = (props) => {
             <div
                 className="rightParen"
                 onClick={() => {
-                    props.setParenPositions(
-                        [
-                            ...props.parenPositions,
-                            { position: props.position, location: "right" }
-                        ]
-                    )
+                    if (rightParen) {
+                        props.setParenPositions(
+                            props.parenPositions.filter(obj => obj.position !== props.position && obj.location !== "right"),
+                        )
+                    } else {
+                        props.setParenPositions(
+                            [
+                                ...props.parenPositions,
+                                { position: props.position, location: "right" }
+                            ]
+                        )
+                    }
                 }}
             >
                 {
@@ -52,7 +64,6 @@ const SymbolBox = (props) => {
 }
 
 const Solution = (props) => {
-    console.log("solution", props.solution)
     const boxes = []
     for (let i = 0; i < 5; i++) {
         if (i === 4) {

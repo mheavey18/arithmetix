@@ -11,39 +11,32 @@ import Solution from "./components/Solution"
 import {
     decks,
     stringToMath,
-    mathToString,
     symbols,
 } from "./constants"
 
-// we should be able to get rid of these
-const appendToSolution = (currentSolution, value) => {
-    if (value in stringToMath) {
-        return [...currentSolution, stringToMath[value]]
-    }
-    return [...currentSolution, value]
-}
-
-const presentSolution = (currentSolution) => {
-    return currentSolution.map((value) => {
-        if (value in mathToString) {
-            return mathToString[value]
-        }
-        return value
-    })
-}
-
-// TODO: finish this
 const evaluateSelections = (numbersSelected, symbolsSelected, parenPositions) => {
     const solution = []
     for (let i = 0; i < 5; i++) {
         // check if we need a left paren
+        if (parenPositions.some(obj => obj.position === i && obj.location === "left")) {
+            solution.push("(")
+        }
         // push number
-        // check if we need a right paren
-        // push symbol (use string to math object)
         solution.push(numbersSelected[i])
+        // check if we need a right paren
+        if (parenPositions.some(obj => obj.position === i && obj.location === "right")) {
+            solution.push(")")
+        }
+        // push symbol (use string to math object)
+        if (symbolsSelected[i] in stringToMath) {
+            solution.push(stringToMath[symbolsSelected[i]])
+        } else {
+            solution.push(symbolsSelected[i])
+        }
     }
     // combine array into string
     // evaluate string
+    return evaluate(solution.join(""))
 }
 
 const getNumberOptions = (deck, numOptions) => {
@@ -53,7 +46,7 @@ const getNumberOptions = (deck, numOptions) => {
 }
 
 const App = () => {
-    const [currentSolution, setCurrentSolution] = useState([])
+    const [currentSolution, setCurrentSolution] = useState("")
     const [numbersSelected, setNumbersSelected] = useState([])
     const [symbolsSelected, setSymbolsSelected] = useState([])
     const [parenPositions, setParenPositions] = useState([])
@@ -94,7 +87,9 @@ const App = () => {
                     setParenPositions={setParenPositions}
                     numbersSelected={numbersSelected}
                     symbolsSelected={symbolsSelected}
+                    computedTotal={currentSolution}
                 />
+                {currentSolution}
                 {/* number button grid */}
                 <Grid
                     options={remainingNumberObjs}
@@ -112,9 +107,9 @@ const App = () => {
                 />
                 <button
                     onClick={() => {
-                        const answer = evaluate(currentSolution.join("")).toString()
-                        setCurrentSolution([answer])
-                        if (answer === targetNumberObj.value.toString()) {
+                        const answer = evaluateSelections(numbersSelected, symbolsSelected, parenPositions)
+                        setCurrentSolution(answer)
+                        if (answer.toString() === targetNumberObj.value.toString()) {
                             setWinner(true)
                         }
                     }}
@@ -123,16 +118,23 @@ const App = () => {
                     Submit
                 </button>
                 <button
-                    // TODO: update backspace button
                     onClick={() => {
-                        // const currentSolutionCopy = [...currentSolution]
-                        // const lastElement = currentSolutionCopy.pop()
-                        // setCurrentSolution(currentSolutionCopy)
-                        // const index = numberOptions.findIndex(({ value, canUse } )=> value === lastElement && !canUse)
-                        // if (index !== -1) {
-                        //     numberOptions[index].canUse = true
-                        //     setNumberOptions(numberOptions)
-                        // }
+                        if (numbersSelected.length > symbolsSelected.length) {
+                            // remove a number
+                            const numbersCopy = [...numbersSelected]
+                            const lastNumber = numbersCopy.pop()
+                            setNumbersSelected(numbersCopy)
+                            const index = numberOptions.findIndex(({ value, canUse } )=> value === lastNumber && !canUse)
+                            if (index !== -1) {
+                                numberOptions[index].canUse = true
+                                setNumberOptions(numberOptions)
+                            }
+                        } else {
+                            // remove a symbol
+                            const symbolsCopy = [...symbolsSelected]
+                            symbolsCopy.pop()
+                            setSymbolsSelected(symbolsCopy)
+                        }
                     }}
                 >
                     Backspace
@@ -143,6 +145,7 @@ const App = () => {
                         setParenPositions([])
                         setSymbolsSelected([])
                         setNumberOptions(numberOptions.map(obj => ({ ...obj, canUse: true})))
+                        setCurrentSolution("")
                     }}
                 >
                     Clear

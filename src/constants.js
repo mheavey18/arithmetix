@@ -96,9 +96,3 @@ export const stringToMath = {
     "x": "*",
     "÷": "/",
 }
-export const mathToString = {
-    "+": "+",
-    "-": "-",
-    "*": "x",
-    "/": "÷",
-}
